@@ -1847,6 +1847,15 @@ additional files for another type of population structure analysis - a
 model based approach with <code>admixture</code>.</li>
 <li><code>--pca</code> - fairly self explanatory, this tells
 <code>plink</code> to calculate a principal components analysis.</li>
+<li><code>--maf</code> - Since this is based on the relationship matrix,
+it is critical to remove very-low-MAF variants before performing this
+computation. Setting MAF cutoffs is actually not that easy or
+straightforward. Hard MAF filtering (i.e. setting a high threshold) can
+severely bias estimation of the site frequency spectrum and cause
+problems with demographic analyses. Similarly, an excesss of low
+frequency, ‘singleton’ SNPs (i.e. only occurring in one individual) can
+mean you keep many uniformative loci in your dataset that make it hard
+to model things like population structure.</li>
 </ul>
 <p><br></p>
 <p>Once the command is run, we will see a series of new files. We will
