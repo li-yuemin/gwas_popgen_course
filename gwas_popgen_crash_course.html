@@ -1968,12 +1968,12 @@ it as a job. Whatever works for you is fine.</p>
 <p>First load the <code>tidyverse</code> package and ensure you have
 <code>plink</code> output into the working directory you are operating
 in.</p>
-<pre class="r"><code>rm(list=ls())
+<pre class="r"><code>rm(list = ls())
 # load tidyverse package
 library(tidyverse)</code></pre>
 <p><br></p>
-<p>Then we will use a combination of <code>read_table</code> and the
-standard <code>scan</code> function to read in the data.</p>
+<p>Then we will use a combination of <code>readr</code> and the standard
+<code>scan</code> function to read in the data.</p>
 <pre class="r"><code>#read in data
 pca &lt;- read_table(&quot;g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.eigenvec&quot;, col_names = FALSE)
 eigenval &lt;- scan(&quot;g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.eigenval&quot;)</code></pre>
@@ -1995,7 +1995,7 @@ names(pca)[2:ncol(pca)] &lt;- paste0(&quot;PC&quot;, 1:(ncol(pca)-1))</code></pr
 <p>Next, we will read in the populations info we generated and add a
 population vector.</p>
 <pre class="r"><code>#read in the labels
-pop &lt;- read_table(&quot;g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.sample.pop&quot;,col_names = FALSE)
+pop &lt;- read_table(&quot;g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.sample.pop&quot;, col_names = FALSE)
 pca[,22] &lt;- pop[,2]
 # set the name
 names(pca)[22] &lt;- &quot;populations&quot;</code></pre>
@@ -2026,7 +2026,7 @@ cumsum(pve$pve)</code></pre>
 <p>Next we move on to actually plotting our PCA. Given the work we did
 earlier to get our data into shape, this doesn’t take much effort at
 all.</p>
-<pre class="r"><code>b &lt;- ggplot(pca, aes(PC1, PC2, col = populations)) + geom_point(size = 0.8,alpha=1)
+<pre class="r"><code>b &lt;- ggplot(pca, aes(PC1, PC2, col = populations)) + geom_point(size = 0.8, alpha = 1)
 b + xlab(paste0(&quot;PC1 (&quot;, signif(pve$pve[1], 3), &quot;%)&quot;)) + 
   ylab(paste0(&quot;PC2 (&quot;, signif(pve$pve[2], 3), &quot;%)&quot;)) +
   theme_bw()</code></pre>
@@ -2127,7 +2127,7 @@ makes much more sense to plot them. So for that we turn to
 <h4>Step 3: Visualising per SNP <em>F</em><sub>ST</sub></h4>
 <p><br></p>
 <p>We will load the <code>tidyverse</code> package.</p>
-<pre class="r"><code>rm(list=ls())
+<pre class="r"><code>rm(list = ls())
 # load tidyverse package
 library(tidyverse)</code></pre>
 <p><br></p>
@@ -2166,7 +2166,7 @@ percentile of the empirical data.</p>
 <p>Once again, we can turn to <code>R</code> to do this quite easily.
 First, let’s identify the thresholds from the distribution.</p>
 <pre class="r"><code># identify the 95% and 99% percentile
-quantiles(fst$FST, c(0.975, 0.995), na.rm = T)</code></pre>
+quantile(fst$FST, c(0.975, 0.995), na.rm = T)</code></pre>
 <p><br></p>
 <p>Hang on a moment, those values aren’t 95 and 99! That’s because we
 are performing a one-tailed test here, so we are not interested in the
@@ -2190,9 +2190,9 @@ background:</p>
 <p><br></p>
 <p>Finally, let’s recreate our plot and this time colour the SNPs by
 their outlier status.</p>
-<pre class="r"><code>ggplot(fst, aes(POS, FST, colour = outlier)) + geom_point(size=0.8,alpha=0.5)+
-  scale_color_manual(values=c(&quot;steelblue&quot;,&quot;darkred&quot;))+
-    labs(title = &quot;TOMSK_AFR&quot;,x =&quot;chr1 position (bp)&quot;, y = expression(paste(italic(F)[ST])))+
+<pre class="r"><code>ggplot(fst, aes(POS, FST, colour = outlier)) + geom_point(size = 0.8,alpha = 0.5) +
+  scale_color_manual(values = c(&quot;steelblue&quot;,&quot;darkred&quot;)) +
+    labs(title = &quot;TOMSK_AFR&quot;,x =&quot;chr1 position (bp)&quot;, y = expression(paste(italic(F)[ST]))) +
     theme(legend.position = &quot;none&quot;) +
     scale_x_continuous(labels = scales::comma)</code></pre>
 <p><br></p>
@@ -2201,23 +2201,26 @@ chromsome. Downstream, we might want to see what genes these occur close
 to. But for now, think a bit about how much we might trust this
 test…</p>
 <p><br></p>
+<p>Then we will perform the same outlier tests between the Tomsk
+population and the rest of four populations (AMR, EAS, EUR, SAS).</p>
+<p><br></p>
 <div id="bonus-step-4-performing-simple-outlier-analyses-using-a-loop" class="section level5">
 <h5><em>Bonus Step 4: Performing simple outlier analyses using a
 loop</em></h5>
 <pre class="r"><code># read in the file
 pops &lt;- c(&quot;AFR&quot;, &quot;AMR&quot;, &quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)
 
-pdf(file=&quot;TOMSK_fst_chr1.pdf&quot;,width=10,height=2.5)
+pdf(file = &quot;TOMSK_fst_chr1.pdf&quot;, width = 10,height = 2.5)
 
 for (pop in pops){
-  fst &lt;- read_tsv(paste0(&quot;TOMSK_&quot;,pop,&quot;_chr1.fst&quot;))
+  fst &lt;- read_tsv(paste0(&quot;TOMSK_&quot;, pop, &quot;_chr1.fst&quot;))
   # identify the 95% percentile
   my_threshold &lt;- quantile(fst$FST, 0.975, na.rm = T)
   fst &lt;- fst %&gt;% mutate(outlier = ifelse(FST &gt; my_threshold, &quot;outlier&quot;, &quot;background&quot;))
   fst %&gt;% group_by(outlier) %&gt;% tally()
-  ggplot(fst, aes(POS, FST, colour = outlier)) + geom_point(size=0.8,alpha=0.5)+
-    theme_bw() + scale_color_manual(values=c(&quot;steelblue&quot;,&quot;darkred&quot;))+
-    labs(title = paste0(&quot;TOMSK_&quot;,pop), x = &quot;chr1 position (bp)&quot;, y = expression(paste(italic(F)[ST])))+
+  ggplot(fst, aes(POS, FST, colour = outlier)) + geom_point(size = 0.8, alpha = 0.5) +
+    theme_bw() + scale_color_manual(values = c(&quot;steelblue&quot;, &quot;darkred&quot;)) +
+    labs(title = paste0(&quot;TOMSK_&quot;,pop), x = &quot;chr1 position (bp)&quot;, y = expression(paste(italic(F)[ST]))) +
     theme(legend.position = &quot;none&quot;) +
     scale_x_continuous(labels = scales::comma)
 }
@@ -2296,18 +2299,18 @@ genotype uncertainties into account.</p>
 <h4>Step 2: plot the SFS</h4>
 <p><br></p>
 <p>Next we turn to R to plot the analysis we have produced, again!</p>
-<pre class="r"><code>rm(list=ls())
+<pre class="r"><code>rm(list = ls())
 library(tidyverse)
 
-pdf(file=paste0(pop,&quot;_chr1_biallelic_snps.pdf&quot;),width=4,height=4)
 pops &lt;- c(&quot;TOMSK&quot;,&quot;AFR&quot;, &quot;AMR&quot;, &quot;EAS&quot;, &quot;EUR&quot;, &quot;SAS&quot;)
 for (pop in pops){
-  var_counts &lt;- read.table(paste0(pop, &quot;_chr1_biallelic_snps.frq.counts&quot;), header = TRUE)
-  var_counts2 &lt;- filter(var_counts,var_counts$C1!=0&amp;var_counts$C2!=0)
-  a &lt;- ggplot(var_counts2, aes(C1)) + geom_histogram(fill = &quot;gray&quot;, colour = &quot;black&quot;,binwidth = 1)
-  a+theme_classic()+labs(x=&quot;&quot;,y=&quot;&quot;, title = pop) 
-}
-dev.off()</code></pre>
+  var_counts &lt;- read_table(paste0(pop, &quot;_chr1_biallelic_snps.frq.counts&quot;))
+  var_counts2 &lt;- filter(var_counts, C1!=0&amp;C2!=0&amp;G0==0)
+  pdf(file = paste0(pop, &quot;_chr1_biallelic_snps.pdf&quot;), width = 4,height = 4)
+  a &lt;- ggplot(var_counts2, aes(C1)) + geom_histogram(fill = &quot;gray&quot;, colour = &quot;black&quot;, binwidth = 1)
+  a + theme_classic() + labs(x = &quot;&quot;,y = &quot;&quot;, title = pop) + scale_y_continuous(labels = scales::comma)
+  dev.off()
+}</code></pre>
 <p><br> <br> <br></p>
 </div>
 </div>
