@@ -1996,7 +1996,7 @@ names(pca)[2:ncol(pca)] &lt;- paste0(&quot;PC&quot;, 1:(ncol(pca)-1))</code></pr
 population vector.</p>
 <pre class="r"><code>#read in the labels
 pop &lt;- read_table(&quot;g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.sample.pop&quot;,col_names = FALSE)
-pca[,22] &lt;- spp[,2]
+pca[,22] &lt;- pop[,2]
 # set the name
 names(pca)[22] &lt;- &quot;populations&quot;</code></pre>
 <p><br> <br></p>
