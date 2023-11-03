@@ -3019,7 +3019,7 @@ mean later.</p>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -l h_vmem=1G</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> plink/1.9-170906</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="va">VCF</span><span class="op">=</span>../merge_data/g1k_TOMSK_lifted_GRCh38_merged_chr1.vcf.gz <span class="co">#insert your data path</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="va">VCF</span><span class="op">=</span>../merged_data/g1k_TOMSK_lifted_GRCh38_merged_chr1.vcf.gz <span class="co">#insert your data path</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="va">OUT</span><span class="op">=</span>g1k_TOMSK_lifted_GRCh38_merged_chr1</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--threads</span> <span class="va">${NSLOTS}</span> <span class="at">--vcf</span> <span class="va">$VCF</span> <span class="at">--double-id</span> <span class="dt">\</span></span>
@@ -3084,7 +3084,7 @@ running.</p>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> plink/1.9-170906</span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="va">VCF</span><span class="op">=</span>../merge_data/g1k_TOMSK_lifted_GRCh38_merged_chr1.vcf.gz <span class="co">#insert your data path</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="va">VCF</span><span class="op">=</span>../merged_data/g1k_TOMSK_lifted_GRCh38_merged_chr1.vcf.gz <span class="co">#insert your data path</span></span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="va">PRUNE_IN</span><span class="op">=</span>../ld_pruning/g1k_TOMSK_lifted_GRCh38_merged_chr1.prune.in</span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="va">OUT</span><span class="op">=</span>g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01</span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
@@ -3168,7 +3168,7 @@ running.</p>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> plink/1.9-170906</span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="va">PREFIX</span><span class="op">=</span>../merge_data/g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01 </span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="va">PREFIX</span><span class="op">=</span>../merged_data/g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01 </span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="va">OUT</span><span class="op">=</span>g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01</span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--threads</span> <span class="va">${NSLOTS}</span> <span class="at">--bfile</span> <span class="va">$PREFIX</span> <span class="at">--double-id</span> <span class="dt">\</span></span>
@@ -3341,8 +3341,8 @@ populations</p>
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> POP <span class="kw">in</span> AFR AMR EAS EUR SAS<span class="kw">;</span><span class="cf">do</span></span>
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="va">POPFILE</span><span class="op">=</span>../merge_data/TOMSK_<span class="va">${POP}</span>.id.pop.plink</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="va">VCF</span><span class="op">=</span>../merge_data/g1k_TOMSK_lifted_GRCh38_merged_chr1.vcf.gz</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="va">POPFILE</span><span class="op">=</span>../merged_data/TOMSK_<span class="va">${POP}</span>.id.pop.plink</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="va">VCF</span><span class="op">=</span>../merged_data/g1k_TOMSK_lifted_GRCh38_merged_chr1.vcf.gz</span>
 <span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="va">OUT</span><span class="op">=</span>TOMSK_<span class="va">${POP}</span>_chr1</span>
 <span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--vcf</span> <span class="va">$VCF</span> <span class="at">--double-id</span> <span class="dt">\</span></span>
