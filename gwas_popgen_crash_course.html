@@ -2605,42 +2605,42 @@ border: none; display: inline-block;
 -khtml-user-select: none; -moz-user-select: none;
 -ms-user-select: none; user-select: none;
 padding: 0 4px; width: 4em;
-color: #aaaaaa;
 }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+pre.numberSource { margin-left: 3em; padding-left: 4px; }
 div.sourceCode
-{ background-color: #f8f8f8; }
+{ color: #cccccc; background-color: #303030; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ef2929; } 
-code span.an { color: #8f5902; font-weight: bold; font-style: italic; } 
-code span.at { color: #c4a000; } 
-code span.bn { color: #0000cf; } 
-code span.cf { color: #204a87; font-weight: bold; } 
-code span.ch { color: #4e9a06; } 
-code span.cn { color: #000000; } 
-code span.co { color: #8f5902; font-style: italic; } 
-code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } 
-code span.do { color: #8f5902; font-weight: bold; font-style: italic; } 
-code span.dt { color: #204a87; } 
-code span.dv { color: #0000cf; } 
-code span.er { color: #a40000; font-weight: bold; } 
+code span.al { color: #ffcfaf; } 
+code span.an { color: #7f9f7f; font-weight: bold; } 
+code span.at { } 
+code span.bn { color: #dca3a3; } 
+code span.bu { } 
+code span.cf { color: #f0dfaf; } 
+code span.ch { color: #dca3a3; } 
+code span.cn { color: #dca3a3; font-weight: bold; } 
+code span.co { color: #7f9f7f; } 
+code span.cv { color: #7f9f7f; font-weight: bold; } 
+code span.do { color: #7f9f7f; } 
+code span.dt { color: #dfdfbf; } 
+code span.dv { color: #dcdccc; } 
+code span.er { color: #c3bf9f; } 
 code span.ex { } 
-code span.fl { color: #0000cf; } 
-code span.fu { color: #000000; } 
+code span.fl { color: #c0bed1; } 
+code span.fu { color: #efef8f; } 
 code span.im { } 
-code span.in { color: #8f5902; font-weight: bold; font-style: italic; } 
-code span.kw { color: #204a87; font-weight: bold; } 
-code span.op { color: #ce5c00; font-weight: bold; } 
-code span.ot { color: #8f5902; } 
-code span.pp { color: #8f5902; font-style: italic; } 
-code span.sc { color: #000000; } 
-code span.ss { color: #4e9a06; } 
-code span.st { color: #4e9a06; } 
-code span.va { color: #000000; } 
-code span.vs { color: #4e9a06; } 
-code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.in { color: #7f9f7f; font-weight: bold; } 
+code span.kw { color: #f0dfaf; } 
+code span.op { color: #f0efd0; } 
+code span.ot { color: #efef8f; } 
+code span.pp { color: #ffcfaf; font-weight: bold; } 
+code span.sc { color: #dca3a3; } 
+code span.ss { color: #cc9393; } 
+code span.st { color: #cc9393; } 
+code span.va { } 
+code span.vs { color: #cc9393; } 
+code span.wa { color: #7f9f7f; font-weight: bold; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -3196,17 +3196,29 @@ the eigenvectors from our analysis</li>
 <p><br></p>
 <p>First, we need some sort of population labels for the samples and
 match them with the eigenvectors we have.</p>
+<ul>
+<li>Method 1 (using a loop in combination with <code>grep</code>):</li>
+</ul>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the sample list in the same sequence with the .eigenvec file</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">&#39;{print $1}&#39;</span> g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.eigenvec <span class="op">&gt;</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.sample</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># match the sample with the population it belongs.</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.sample<span class="va">)</span><span class="kw">;</span><span class="cf">do</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-w</span> <span class="va">$i</span> ../merged_data/g1k_TOMSK_lifted_GRCh38_merged.id.pop <span class="op">&gt;&gt;</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="ex">g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.sample.pop</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#double check whether two files have the same length.</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.sample</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.sample.pop</span></code></pre></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">&#39;{print $1}&#39;</span> g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.eigenvec <span class="op">&gt;</span> g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.sample</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># match the sample with the population it belongs.</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.sample<span class="va">)</span><span class="kw">;</span><span class="cf">do</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-w</span> <span class="va">$i</span> ../merged_data/g1k_TOMSK_lifted_GRCh38_merged.id.pop <span class="op">&gt;&gt;</span> g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.sample.pop</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#double check whether two files have the same length.</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.sample</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.sample.pop</span></code></pre></div>
+<p><br></p>
+<ul>
+<li>Method 2 (using <code>awk</code>):</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the sample list in the same sequence with the .eigenvec file</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">&#39;{print $1}&#39;</span> g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.eigenvec <span class="op">&gt;</span> g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.sample</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># match the sample with the population it belongs.</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">&#39;NR==FNR{a[$1]=$0; next} {print a[$1]}&#39;</span> ../merged_data/g1k_TOMSK_lifted_GRCh38_merged.id.pop g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.sample <span class="op">&gt;</span> g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.sample.pop</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#double check whether two files have the same length.</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.sample</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.sample.pop</span></code></pre></div>
 <p><br></p>
 <p>Next we turn to R to plot the analysis we have produced!</p>
 <p>We could use the R studio via <a href="https://docs.hpc.qmul.ac.uk/ondemand/">OnDemand</a>, which gives
@@ -3220,15 +3232,15 @@ it as a job. Whatever works for you is fine.</p>
 <p>First load the <code>tidyverse</code> package and ensure you have
 <code>plink</code> output into the working directory you are operating
 in.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># load tidyverse package</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># load tidyverse package</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <p><br></p>
 <p>Then we will use a combination of <code>readr</code> and the standard
 <code>scan</code> function to read in the data.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#read in data</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> <span class="fu">read_table</span>(<span class="st">&quot;g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.eigenvec&quot;</span>, <span class="at">col_names =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>eigenval <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">&quot;g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.eigenval&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#read in data</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> <span class="fu">read_table</span>(<span class="st">&quot;g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.eigenvec&quot;</span>, <span class="at">col_names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>eigenval <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">&quot;g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.eigenval&quot;</span>)</span></code></pre></div>
 <p><br> <br></p>
 </div>
 <div id="cleaning-up-the-data" class="section level5">
@@ -3238,19 +3250,19 @@ in.</p>
 reasonable shape. First we will remove a nuisance column
 (<code>plink</code> outputs the individual ID twice). We will also give
 our <code>pca</code> data.frame proper column names.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove nuisance column</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> pca[,<span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># set names</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pca)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">&quot;ind&quot;</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pca)[<span class="dv">2</span><span class="sc">:</span><span class="fu">ncol</span>(pca)] <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;PC&quot;</span>, <span class="dv">1</span><span class="sc">:</span>(<span class="fu">ncol</span>(pca)<span class="sc">-</span><span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove nuisance column</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> pca[,<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># set names</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pca)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">&quot;ind&quot;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pca)[<span class="dv">2</span><span class="sc">:</span><span class="fu">ncol</span>(pca)] <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;PC&quot;</span>, <span class="dv">1</span><span class="sc">:</span>(<span class="fu">ncol</span>(pca)<span class="sc">-</span><span class="dv">1</span>))</span></code></pre></div>
 <p><br></p>
 <p>Next, we will read in the populations info we generated and add a
 population vector.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#read in the labels</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>pop <span class="ot">&lt;-</span> <span class="fu">read_table</span>(<span class="st">&quot;g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.sample.pop&quot;</span>, <span class="at">col_names =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>pca[,<span class="dv">22</span>] <span class="ot">&lt;-</span> pop[,<span class="dv">2</span>]</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># set the name</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pca)[<span class="dv">22</span>] <span class="ot">&lt;-</span> <span class="st">&quot;populations&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#read in the labels</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>pop <span class="ot">&lt;-</span> <span class="fu">read_table</span>(<span class="st">&quot;g1k_TOMSK_lifted_GRCh38_merged_chr1_pruned_maf01.sample.pop&quot;</span>, <span class="at">col_names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>pca[,<span class="dv">22</span>] <span class="ot">&lt;-</span> pop[,<span class="dv">2</span>]</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># set the name</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pca)[<span class="dv">22</span>] <span class="ot">&lt;-</span> <span class="st">&quot;populations&quot;</span></span></code></pre></div>
 <p><br> <br></p>
 </div>
 <div id="plotting-the-data" class="section level5">
@@ -3261,27 +3273,27 @@ to actually visualise the data properly. First we will plot the
 eigenvalues. It is quite straightforward to translate these into
 percentage variance explained (although note, you could just plot these
 raw if you wished).</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># first convert to percentage variance explained</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>pve <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">PC =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">pve =</span> eigenval<span class="sc">/</span><span class="fu">sum</span>(eigenval)<span class="sc">*</span><span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># first convert to percentage variance explained</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>pve <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">PC =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">pve =</span> eigenval<span class="sc">/</span><span class="fu">sum</span>(eigenval)<span class="sc">*</span><span class="dv">100</span>)</span></code></pre></div>
 <p><br></p>
 <p>With that done, it is very simple to create a bar plot showing the
 percentage of variance each principal component explains.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(pve, <span class="fu">aes</span>(PC, pve)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>,<span class="at">fill =</span> <span class="st">&quot;gray&quot;</span>,<span class="at">colour =</span> <span class="st">&quot;black&quot;</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>a <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;Percentage variance explained&quot;</span>) <span class="sc">+</span> <span class="fu">theme_classic</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(pve, <span class="fu">aes</span>(PC, pve)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>,<span class="at">fill =</span> <span class="st">&quot;gray&quot;</span>,<span class="at">colour =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>a <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;Percentage variance explained&quot;</span>) <span class="sc">+</span> <span class="fu">theme_classic</span>()</span></code></pre></div>
 <p><br></p>
 <p>Cumulatively, they explain 100% of the variance but PC1, PC2 and
 possible PC3 together explain about 30% of the variance. We could
 calculate this with the <code>cumsum</code> function, like so:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the cumulative sum of the percentage variance explained</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cumsum</span>(pve<span class="sc">$</span>pve)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the cumulative sum of the percentage variance explained</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cumsum</span>(pve<span class="sc">$</span>pve)</span></code></pre></div>
 <p><br></p>
 <p>Next we move on to actually plotting our PCA. Given the work we did
 earlier to get our data into shape, this doesn’t take much effort at
 all.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(pca, <span class="fu">aes</span>(PC1, PC2, <span class="at">col =</span> populations)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.8</span>, <span class="at">alpha =</span> <span class="dv">1</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>b <span class="sc">+</span> <span class="fu">xlab</span>(<span class="fu">paste0</span>(<span class="st">&quot;PC1 (&quot;</span>, <span class="fu">signif</span>(pve<span class="sc">$</span>pve[<span class="dv">1</span>], <span class="dv">3</span>), <span class="st">&quot;%)&quot;</span>)) <span class="sc">+</span> </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="fu">paste0</span>(<span class="st">&quot;PC2 (&quot;</span>, <span class="fu">signif</span>(pve<span class="sc">$</span>pve[<span class="dv">2</span>], <span class="dv">3</span>), <span class="st">&quot;%)&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(pca, <span class="fu">aes</span>(PC1, PC2, <span class="at">col =</span> populations)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.8</span>, <span class="at">alpha =</span> <span class="dv">1</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>b <span class="sc">+</span> <span class="fu">xlab</span>(<span class="fu">paste0</span>(<span class="st">&quot;PC1 (&quot;</span>, <span class="fu">signif</span>(pve<span class="sc">$</span>pve[<span class="dv">1</span>], <span class="dv">3</span>), <span class="st">&quot;%)&quot;</span>)) <span class="sc">+</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="fu">paste0</span>(<span class="st">&quot;PC2 (&quot;</span>, <span class="fu">signif</span>(pve<span class="sc">$</span>pve[<span class="dv">2</span>], <span class="dv">3</span>), <span class="st">&quot;%)&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
 <p><br></p>
 <hr class="colored-line">
 <hr class="colored-dashed-line">
@@ -3306,8 +3318,8 @@ VCF and learn how to calculate population differentiation.</p>
 and there are many tools that can do it. We will use
 <code>plink</code>.</p>
 <p>Let’s create a directory called <code>fst</code>.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make a directory</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> fst</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make a directory</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> fst</span></code></pre></div>
 <p><br></p>
 <p>As we learned earlier, VCFs can store a lot of information, but one
 thing they do not contain is population information. They can store it
@@ -3317,41 +3329,41 @@ metadata. This means that in order to calculate pairwise
 pair of populations.</p>
 <p>We will focus our analysis between the Tomsk population and other
 populations</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> merged_data</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># generate populations files in plink format for each pair of populations</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> POP <span class="kw">in</span> AFR AMR EAS EUR SAS<span class="kw">;</span><span class="cf">do</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> Sample g1k_TOMSK_lifted_GRCh38_merged.id.pop <span class="op">&gt;</span> TOMSK_<span class="va">$POP</span>.id.pop</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="va">$POP</span> g1k_TOMSK_lifted_GRCh38_merged.id.pop <span class="op">&gt;&gt;</span> TOMSK_<span class="va">$POP</span>.id.pop</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">&#39;{print $1,$1,$2}&#39;</span> TOMSK_<span class="va">$POP</span>.id.pop <span class="op">&gt;</span> TOMSK_<span class="va">$POP</span>.id.pop.plink</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co">#move into our fst directory</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../fst</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> merged_data</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># generate populations files in plink format for each pair of populations</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> POP <span class="kw">in</span> AFR AMR EAS EUR SAS<span class="kw">;</span><span class="cf">do</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> Sample g1k_TOMSK_lifted_GRCh38_merged.id.pop <span class="op">&gt;</span> TOMSK_<span class="va">$POP</span>.id.pop</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="va">$POP</span> g1k_TOMSK_lifted_GRCh38_merged.id.pop <span class="op">&gt;&gt;</span> TOMSK_<span class="va">$POP</span>.id.pop</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">&#39;{print $1,$1,$2}&#39;</span> TOMSK_<span class="va">$POP</span>.id.pop <span class="op">&gt;</span> TOMSK_<span class="va">$POP</span>.id.pop.plink</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">#move into our fst directory</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../fst</span></code></pre></div>
 <p><br></p>
 <p>We now have two population files that we can use for our
 <em>F</em><sub>ST</sub> analyses. We are ready to use
 <code>plink</code>.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -cwd</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -j y</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -pe smp 1</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -l h_rt=1:0:0</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -l h_vmem=1G</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> plink/1.9-170906</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> POP <span class="kw">in</span> AFR AMR EAS EUR SAS<span class="kw">;</span><span class="cf">do</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="va">POPFILE</span><span class="op">=</span>../merged_data/TOMSK_<span class="va">${POP}</span>.id.pop.plink</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="va">VCF</span><span class="op">=</span>../merged_data/g1k_TOMSK_lifted_GRCh38_merged_chr1.vcf.gz</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="va">OUT</span><span class="op">=</span>TOMSK_<span class="va">${POP}</span>_chr1</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--vcf</span> <span class="va">$VCF</span> <span class="at">--double-id</span> <span class="dt">\</span></span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>--set-missing-var-ids @:# <span class="dt">\</span></span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>--within <span class="va">$POPFILE</span> <span class="dt">\</span></span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>--fst <span class="dt">\</span></span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>--out <span class="va">$OUT</span></span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -cwd</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -j y</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -pe smp 1</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -l h_rt=1:0:0</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -l h_vmem=1G</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> plink/1.9-170906</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> POP <span class="kw">in</span> AFR AMR EAS EUR SAS<span class="kw">;</span><span class="cf">do</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="va">POPFILE</span><span class="op">=</span>../merged_data/TOMSK_<span class="va">${POP}</span>.id.pop.plink</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="va">VCF</span><span class="op">=</span>../merged_data/g1k_TOMSK_lifted_GRCh38_merged_chr1.vcf.gz</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="va">OUT</span><span class="op">=</span>TOMSK_<span class="va">${POP}</span>_chr1</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--vcf</span> <span class="va">$VCF</span> <span class="at">--double-id</span> <span class="dt">\</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>--set-missing-var-ids @:# <span class="dt">\</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>--within <span class="va">$POPFILE</span> <span class="dt">\</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>--fst <span class="dt">\</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>--out <span class="va">$OUT</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div>
 <p><br> <br></p>
 </div>
 <div id="step-2-check-the-mean-genome-wide-fst" class="section level4">
@@ -3362,7 +3374,7 @@ files. There are some <code>.log</code> files. You can see from this it
 calculates the mean <em>F</em><sub>ST</sub> across all the SNPs we
 provided on chromsome 1 for each populations pair.</p>
 <p>First, let’s check the mean <em>F</em><sub>ST</sub>.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> Fst <span class="pp">*</span>log</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> Fst <span class="pp">*</span>log</span></code></pre></div>
 <p><br></p>
 <p>So what did we do here? Well we calculated Weir &amp; Cockerham’s
 <em>F</em><sub>ST</sub> for each SNP and to do this, all we needed to do
@@ -3381,17 +3393,17 @@ makes much more sense to plot them. So for that we turn to
 <h4>Step 3: Visualising per SNP <em>F</em><sub>ST</sub></h4>
 <p><br></p>
 <p>We will load the <code>tidyverse</code> package.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># load tidyverse package</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># load tidyverse package</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <p><br></p>
 <p>Next, we will read in the <code>.fst</code> file of Tomsk and African
 populations.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in the file</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>fst <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;TOMSK_AFR_chr1.fst&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in the file</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>fst <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;TOMSK_AFR_chr1.fst&quot;</span>)</span></code></pre></div>
 <p><br></p>
 <p>With that, we can plot our data using <code>ggplot2</code>:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fst, <span class="fu">aes</span>(POS, FST)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fst, <span class="fu">aes</span>(POS, FST)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><br></p>
 <p>This plot is extremely simple but you can see there is a lot of noise
 - that’s because there are a lot of SNPs… and this is only for a single
@@ -3419,8 +3431,8 @@ later). Typically the threshold is set at either the 95th or 99th
 percentile of the empirical data.</p>
 <p>Once again, we can turn to <code>R</code> to do this quite easily.
 First, let’s identify the thresholds from the distribution.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># identify the 95% and 99% percentile</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(fst<span class="sc">$</span>FST, <span class="fu">c</span>(<span class="fl">0.975</span>, <span class="fl">0.995</span>), <span class="at">na.rm =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># identify the 95% and 99% percentile</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(fst<span class="sc">$</span>FST, <span class="fu">c</span>(<span class="fl">0.975</span>, <span class="fl">0.995</span>), <span class="at">na.rm =</span> T)</span></code></pre></div>
 <p><br></p>
 <p>Hang on a moment, those values aren’t 95 and 99! That’s because we
 are performing a one-tailed test here, so we are not interested in the
@@ -3429,10 +3441,10 @@ lower tail of the <em>F</em><sub>ST</sub> distribution.</p>
 are outliers above the 95% threshold. This will also make it possible
 for us to plot them more easily later. To do this, we will use the
 <code>ifelse</code> function.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># identify the 95% percentile</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>my_threshold <span class="ot">&lt;-</span> <span class="fu">quantile</span>(fst<span class="sc">$</span>FST, <span class="fl">0.975</span>, <span class="at">na.rm =</span> T)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># make an outlier column in the data.frame</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>fst <span class="ot">&lt;-</span> fst <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">outlier =</span> <span class="fu">ifelse</span>(FST <span class="sc">&gt;</span> my_threshold, <span class="st">&quot;outlier&quot;</span>, <span class="st">&quot;background&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># identify the 95% percentile</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>my_threshold <span class="ot">&lt;-</span> <span class="fu">quantile</span>(fst<span class="sc">$</span>FST, <span class="fl">0.975</span>, <span class="at">na.rm =</span> T)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># make an outlier column in the data.frame</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>fst <span class="ot">&lt;-</span> fst <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">outlier =</span> <span class="fu">ifelse</span>(FST <span class="sc">&gt;</span> my_threshold, <span class="st">&quot;outlier&quot;</span>, <span class="st">&quot;background&quot;</span>))</span></code></pre></div>
 <p><br></p>
 <p>What did we do here? <code>ifelse</code> takes a logical argument
 first (i.e. is fst greater than the threshold we set). If this is the
@@ -3440,15 +3452,15 @@ case (i.e. it is <code>TRUE</code>), it will print “outlier” but if not,
 it just prints “background”.</p>
 <p>Now we can see how many outlier SNPs we have versus the
 background:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>fst <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(outlier) <span class="sc">%&gt;%</span> <span class="fu">tally</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>fst <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(outlier) <span class="sc">%&gt;%</span> <span class="fu">tally</span>()</span></code></pre></div>
 <p><br></p>
 <p>Finally, let’s recreate our plot and this time colour the SNPs by
 their outlier status.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fst, <span class="fu">aes</span>(POS, FST, <span class="at">colour =</span> outlier)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.8</span>,<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;steelblue&quot;</span>,<span class="st">&quot;darkred&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;TOMSK_AFR&quot;</span>,<span class="at">x =</span><span class="st">&quot;chr1 position (bp)&quot;</span>, <span class="at">y =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="fu">italic</span>(F)[ST]))) <span class="sc">+</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>comma)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fst, <span class="fu">aes</span>(POS, FST, <span class="at">colour =</span> outlier)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.8</span>,<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;steelblue&quot;</span>,<span class="st">&quot;darkred&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;TOMSK_AFR&quot;</span>,<span class="at">x =</span><span class="st">&quot;chr1 position (bp)&quot;</span>, <span class="at">y =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="fu">italic</span>(F)[ST]))) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>comma)</span></code></pre></div>
 <p><br></p>
 <p>Now we can actually see the position of our outlier SNPs along the
 chromsome. Downstream, we might want to see what genes these occur close
@@ -3461,25 +3473,25 @@ population and the rest of four populations (AMR, EAS, EUR, SAS).</p>
 <div id="bonus-step-4-performing-simple-outlier-analyses-using-a-loop" class="section level5">
 <h5><em>Bonus Step 4: Performing simple outlier analyses using a
 loop</em></h5>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in the file</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>pops <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;AFR&quot;</span>, <span class="st">&quot;AMR&quot;</span>, <span class="st">&quot;EAS&quot;</span>, <span class="st">&quot;EUR&quot;</span>, <span class="st">&quot;SAS&quot;</span>)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file =</span> <span class="st">&quot;TOMSK_fst_chr1.pdf&quot;</span>, <span class="at">width =</span> <span class="dv">10</span>,<span class="at">height =</span> <span class="fl">2.5</span>)</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (pop <span class="cf">in</span> pops){</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  fst <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="fu">paste0</span>(<span class="st">&quot;TOMSK_&quot;</span>, pop, <span class="st">&quot;_chr1.fst&quot;</span>))</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># identify the 95% percentile</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  my_threshold <span class="ot">&lt;-</span> <span class="fu">quantile</span>(fst<span class="sc">$</span>FST, <span class="fl">0.975</span>, <span class="at">na.rm =</span> T)</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  fst <span class="ot">&lt;-</span> fst <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">outlier =</span> <span class="fu">ifelse</span>(FST <span class="sc">&gt;</span> my_threshold, <span class="st">&quot;outlier&quot;</span>, <span class="st">&quot;background&quot;</span>))</span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  fst <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(outlier) <span class="sc">%&gt;%</span> <span class="fu">tally</span>()</span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(fst, <span class="fu">aes</span>(POS, FST, <span class="at">colour =</span> outlier)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.8</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;steelblue&quot;</span>, <span class="st">&quot;darkred&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">paste0</span>(<span class="st">&quot;TOMSK_&quot;</span>,pop), <span class="at">x =</span> <span class="st">&quot;chr1 position (bp)&quot;</span>, <span class="at">y =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="fu">italic</span>(F)[ST]))) <span class="sc">+</span></span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>comma)</span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in the file</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>pops <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;AFR&quot;</span>, <span class="st">&quot;AMR&quot;</span>, <span class="st">&quot;EAS&quot;</span>, <span class="st">&quot;EUR&quot;</span>, <span class="st">&quot;SAS&quot;</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file =</span> <span class="st">&quot;TOMSK_fst_chr1.pdf&quot;</span>, <span class="at">width =</span> <span class="dv">10</span>,<span class="at">height =</span> <span class="fl">2.5</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (pop <span class="cf">in</span> pops){</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  fst <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="fu">paste0</span>(<span class="st">&quot;TOMSK_&quot;</span>, pop, <span class="st">&quot;_chr1.fst&quot;</span>))</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># identify the 95% percentile</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  my_threshold <span class="ot">&lt;-</span> <span class="fu">quantile</span>(fst<span class="sc">$</span>FST, <span class="fl">0.975</span>, <span class="at">na.rm =</span> T)</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  fst <span class="ot">&lt;-</span> fst <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">outlier =</span> <span class="fu">ifelse</span>(FST <span class="sc">&gt;</span> my_threshold, <span class="st">&quot;outlier&quot;</span>, <span class="st">&quot;background&quot;</span>))</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  fst <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(outlier) <span class="sc">%&gt;%</span> <span class="fu">tally</span>()</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(fst, <span class="fu">aes</span>(POS, FST, <span class="at">colour =</span> outlier)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.8</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;steelblue&quot;</span>, <span class="st">&quot;darkred&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">paste0</span>(<span class="st">&quot;TOMSK_&quot;</span>,pop), <span class="at">x =</span> <span class="st">&quot;chr1 position (bp)&quot;</span>, <span class="at">y =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="fu">italic</span>(F)[ST]))) <span class="sc">+</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>comma)</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
 <p><br> <br></p>
 <hr class="colored-line">
 <hr class="colored-dashed-line">
@@ -3501,9 +3513,9 @@ libraries.</p>
 SFS.</p>
 <p><br></p>
 <p>Let’s create a directory called <code>sfs</code>.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make a directory</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> sfs</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> sfs</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make a directory</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> sfs</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> sfs</span></code></pre></div>
 <p><br></p>
 <div id="optional-step-1-calculate-the-allele-frequency" class="section level4">
 <h4>Optional Step 1: calculate the allele frequency</h4>
@@ -3516,7 +3528,7 @@ job</a>.</p>
 <code>file_list</code>. It looks like this, with the first column
 stating the population name, the second column stating the path to the
 vcf file.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> file_list</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> file_list</span></code></pre></div>
 <pre><code>TOMSK ../data/TOMSK_lifted_GRCh38_chr1.vcf.gz
 AFR ../1000G_phased/AFR/AFR_chr1_biallelic_snps.vcf.gz
 AMR ../1000G_phased/AMR/AMR_chr1_biallelic_snps.vcf.gz
@@ -3525,23 +3537,23 @@ EUR ../1000G_phased/EUR/EUR_chr1_biallelic_snps.vcf.gz
 SAS ../1000G_phased/SAS/SAS_chr1_biallelic_snps.vcf.gz</code></pre>
 <p><br></p>
 <p>Next, submit the array job!</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -cwd</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -j y</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -pe smp 1</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -l h_rt=1:0:0</span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -l h_vmem=1G</span></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -t 1-6</span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="va">POP</span><span class="op">=</span><span class="va">$(</span><span class="fu">sed</span> <span class="at">-n</span> <span class="st">&quot;</span><span class="va">${SGE_TASK_ID}</span><span class="st">p&quot;</span> file_list <span class="kw">|</span> <span class="fu">awk</span> <span class="st">&#39;{print $1}&#39;</span><span class="va">)</span></span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="va">VCF</span><span class="op">=</span><span class="va">$(</span><span class="fu">sed</span> <span class="at">-n</span> <span class="st">&quot;</span><span class="va">${SGE_TASK_ID}</span><span class="st">p&quot;</span> file_list <span class="kw">|</span> <span class="fu">awk</span> <span class="st">&#39;{print $2}&#39;</span><span class="va">)</span></span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> plink/1.9-170906</span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--vcf</span> <span class="va">$VCF</span> <span class="at">--double-id</span> <span class="dt">\</span></span>
-<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>--set-missing-var-ids @:# <span class="dt">\</span></span>
-<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>--freq counts <span class="dt">\</span></span>
-<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>--out <span class="va">${POP}</span>_chr1_biallelic_snps</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -cwd</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -j y</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -pe smp 1</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -l h_rt=1:0:0</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -l h_vmem=1G</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co">#$ -t 1-6</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="va">POP</span><span class="op">=</span><span class="va">$(</span><span class="fu">sed</span> <span class="at">-n</span> <span class="st">&quot;</span><span class="va">${SGE_TASK_ID}</span><span class="st">p&quot;</span> file_list <span class="kw">|</span> <span class="fu">awk</span> <span class="st">&#39;{print $1}&#39;</span><span class="va">)</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="va">VCF</span><span class="op">=</span><span class="va">$(</span><span class="fu">sed</span> <span class="at">-n</span> <span class="st">&quot;</span><span class="va">${SGE_TASK_ID}</span><span class="st">p&quot;</span> file_list <span class="kw">|</span> <span class="fu">awk</span> <span class="st">&#39;{print $2}&#39;</span><span class="va">)</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> plink/1.9-170906</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--vcf</span> <span class="va">$VCF</span> <span class="at">--double-id</span> <span class="dt">\</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>--set-missing-var-ids @:# <span class="dt">\</span></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>--freq counts <span class="dt">\</span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>--out <span class="va">${POP}</span>_chr1_biallelic_snps</span></code></pre></div>
 <p><br></p>
 <p>One thing to notice is that the SFS cannot be computed with sites
 that contain missing data. By projecting down the number of individuals
@@ -3555,18 +3567,18 @@ genotype uncertainties into account.</p>
 <h4>Step 2: plot the SFS</h4>
 <p><br></p>
 <p>Next we turn to R to plot the analysis we have produced, again!</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>pops <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;TOMSK&quot;</span>,<span class="st">&quot;AFR&quot;</span>, <span class="st">&quot;AMR&quot;</span>, <span class="st">&quot;EAS&quot;</span>, <span class="st">&quot;EUR&quot;</span>, <span class="st">&quot;SAS&quot;</span>)</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (pop <span class="cf">in</span> pops){</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  var_counts <span class="ot">&lt;-</span> <span class="fu">read_table</span>(<span class="fu">paste0</span>(pop, <span class="st">&quot;_chr1_biallelic_snps.frq.counts&quot;</span>))</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  var_counts2 <span class="ot">&lt;-</span> <span class="fu">filter</span>(var_counts, C1<span class="sc">!=</span><span class="dv">0</span><span class="sc">&amp;</span>C2<span class="sc">!=</span><span class="dv">0</span><span class="sc">&amp;</span>G0<span class="sc">==</span><span class="dv">0</span>)</span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pdf</span>(<span class="at">file =</span> <span class="fu">paste0</span>(pop, <span class="st">&quot;_chr1_biallelic_snps.pdf&quot;</span>), <span class="at">width =</span> <span class="dv">4</span>,<span class="at">height =</span> <span class="dv">4</span>)</span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(var_counts2, <span class="fu">aes</span>(C1)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="at">binwidth =</span> <span class="dv">1</span>)</span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  a <span class="sc">+</span> <span class="fu">theme_classic</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>,<span class="at">y =</span> <span class="st">&quot;&quot;</span>, <span class="at">title =</span> pop) <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>comma)</span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dev.off</span>()</span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>pops <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;TOMSK&quot;</span>,<span class="st">&quot;AFR&quot;</span>, <span class="st">&quot;AMR&quot;</span>, <span class="st">&quot;EAS&quot;</span>, <span class="st">&quot;EUR&quot;</span>, <span class="st">&quot;SAS&quot;</span>)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (pop <span class="cf">in</span> pops){</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  var_counts <span class="ot">&lt;-</span> <span class="fu">read_table</span>(<span class="fu">paste0</span>(pop, <span class="st">&quot;_chr1_biallelic_snps.frq.counts&quot;</span>))</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  var_counts2 <span class="ot">&lt;-</span> <span class="fu">filter</span>(var_counts, C1<span class="sc">!=</span><span class="dv">0</span><span class="sc">&amp;</span>C2<span class="sc">!=</span><span class="dv">0</span><span class="sc">&amp;</span>G0<span class="sc">==</span><span class="dv">0</span>)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pdf</span>(<span class="at">file =</span> <span class="fu">paste0</span>(pop, <span class="st">&quot;_chr1_biallelic_snps.pdf&quot;</span>), <span class="at">width =</span> <span class="dv">4</span>,<span class="at">height =</span> <span class="dv">4</span>)</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(var_counts2, <span class="fu">aes</span>(C1)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="at">binwidth =</span> <span class="dv">1</span>)</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>  a <span class="sc">+</span> <span class="fu">theme_classic</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>,<span class="at">y =</span> <span class="st">&quot;&quot;</span>, <span class="at">title =</span> pop) <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>comma)</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dev.off</span>()</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p><br> <br> <br></p>
 <div id="nb-this-tutorial-was-heavily-based-on-a-physalia-course." class="section level6">
 <h6>NB This tutorial was heavily based on a <a href="https://speciationgenomics.github.io">Physalia course</a>.</h6>
